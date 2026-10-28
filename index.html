@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chinos de Mar del Plata</title>
+<style>
+:root{--bg:#f6f5f1;--fg:#1d1d1b;--card:#fff;--mut:#6b6a64;--line:#e2e0d8;--c0:#2a7de1;--c1:#d9780f;--c2:#2f9e62;--c3:#7a6fb0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#eeede8;--card:#232321;--mut:#a09f98;--line:#363633;--c0:#5b9cf0;--c1:#f0a04b;--c2:#55c58a;--c3:#a79ddb;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#eeede8;--card:#232321;--mut:#a09f98;--line:#363633;--c0:#5b9cf0;--c1:#f0a04b;--c2:#55c58a;--c3:#a79ddb;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding:12px 14px 0;border-bottom:1px solid var(--line)}
+h1{font-size:20px;margin:0 0 8px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px}
+.tab{flex:1;min-width:84px;border:2px solid var(--line);background:var(--card);color:var(--fg);border-radius:12px;padding:8px 6px;font:inherit;font-weight:600;cursor:pointer}
+.tab small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.tab.on{border-color:var(--ac);background:var(--ac);color:#fff}
+.tab.on small{color:#fff;opacity:.9}
+main{padding:14px;max-width:640px;margin:0 auto}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.prog{color:var(--mut);font-size:14px}
+.btn{display:inline-block;border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;background:var(--ac);color:#fff;text-align:center}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.sm{padding:6px 10px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.card.done{opacity:.55}
+.card.done .t{text-decoration:line-through}
+.num{width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
+.body{flex:1;min-width:0}
+.t{font-weight:600}
+.n{color:var(--mut);font-size:13px;margin-top:2px}
+.act{display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.chk{width:24px;height:24px;flex:none;accent-color:var(--ac)}
+input[type=text],select{width:100%;box-sizing:border-box;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit;margin-top:6px}
+label{font-size:12px;color:var(--mut);display:block;margin-top:6px}
+.empty{color:var(--mut);text-align:center;padding:30px 0}
+.status{font-size:13px;color:var(--mut);margin:8px 0}
+.save{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;margin-top:12px}
+.save .btn{flex:1}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script id="data" type="application/json">{"days":[{"n":"Día 1","z":"Sudeste","s":[{"id":"a1","a":"Magallanes y Padre Dutto"},{"id":"a2","a":"Edison 1466"},{"id":"a3","a":"Fortunato de la Plaza y Einstein"},{"id":"a4","a":"Mario Bravo y Aguado"},{"id":"a5","a":"Puan 1772"},{"id":"a6","a":"García Lorca y Monseñor D’Andrea"},{"id":"a7","a":"Mario Bravo y De la Maza"},{"id":"a8","a":"Vélez Sarsfield 242"}]},{"n":"Día 2","z":"Centro","s":[{"id":"b1","a":"Cerrito entre 12 de Octubre y El Cano","m":"Cerrito & 12 de Octubre"},{"id":"b2","a":"Cerrito y Hernandarias"},{"id":"b3","a":"Cerrito y Carasa"},{"id":"b4","a":"Juramento y Rosales"},{"id":"b5","a":"Fortunato de la Plaza y Juramento"},{"id":"b6","a":"Fortunato de la Plaza y Padre Dutto"},{"id":"b7","a":"Sicilia y Don Orione"},{"id":"b8","a":"Cerrito y Sicilia"}]},{"n":"Día 3","z":"Noroeste","s":[{"id":"c1","a":"12 de Octubre y Galicia"},{"id":"c2","a":"Dellepiane entre 12 de Octubre y Magallanes","m":"Dellepiane & 12 de Octubre"},{"id":"c3","a":"Talcahuano y Guanahani"},{"id":"c4","a":"Peralta Ramos entre 39 y Lebensohn","m":"Av. Jacinto Peralta Ramos & Lebensohn"},{"id":"c5","a":"Sicilia y Antártida"},{"id":"c6","a":"Fortunato de la Plaza y Matteotti","m":"Mateotti & Av. Fortunato de la Plaza"},{"id":"c7","a":"Génova y Savio"}]},{"n":"Sin día","z":"Sin asignar","s":[{"id":"d1","a":"Calabria y Bosch"}]}]}</script>
+<script>
+const state = JSON.parse(document.getElementById('data').textContent);
+const app = document.getElementById('app');
+const COL = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)'];
+let tab = 0, edit = false, art = null, msg = '';
+const LS = 'chinos-hechos';
+function getDone() { try { return JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) { return {}; } }
+function setDone(d) { try { localStorage.setItem(LS, JSON.stringify(d)); } catch (e) {} }
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const k in (attrs || {})) {
+    if (k === 'class') el.className = attrs[k];
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), attrs[k]);
+    else if (k === 'value' || k === 'checked') el[k] = attrs[k];
+    else el.setAttribute(k, attrs[k]);
+  }
+  for (const c of kids.flat()) if (c != null) el.append(c);
+  return el;
+}
+const dest = s => encodeURIComponent((s.m || s.a.replace(/ y /gi, ' & ')) + ', Mar del Plata, Argentina');
+const one = s => 'https://www.google.com/maps/dir/?api=1&destination=' + dest(s);
+const route = d => 'https://www.google.com/maps/dir/' + d.s.map(dest).join('/');
+
+function render() {
+  app.replaceChildren();
+  const g = state.days[tab];
+  const tabs = h('div', { class: 'tabs' });
+  state.days.forEach((d, i) => {
+    if (i === 3 && !edit && !d.s.length) return;
+    tabs.append(h('button', { class: 'tab' + (i === tab ? ' on' : ''), style: '--ac:' + COL[i], onclick: () => { tab = i; render(); } },
+      d.n, h('small', null, d.z + ' · ' + d.s.length)));
+  });
+  app.append(h('header', null, h('h1', null, '🛒 Chinos de Mar del Plata'), tabs));
+  const main = h('main', { style: '--ac:' + COL[tab] });
+  const done = getDone();
+  const nd = g.s.filter(s => done[s.id]).length;
+  const bar = h('div', { class: 'bar' });
+  if (!edit) {
+    bar.append(h('span', { class: 'prog' }, nd + ' de ' + g.s.length + ' hechos'));
+    if (g.s.length && tab < 3) bar.append(h('a', { class: 'btn sm', href: route(g), target: '_blank', rel: 'noopener' }, 'Ruta completa del día'));
+  } else {
+    bar.append(h('span', { class: 'prog' }, 'Modo edición'));
+  }
+  main.append(bar);
+  if (!g.s.length) main.append(h('div', { class: 'empty' }, 'No hay paradas en este grupo.'));
+  g.s.forEach((s, i) => main.append(edit ? editCard(g, s, i) : viewCard(s, i, done)));
+  if (edit) {
+    main.append(h('button', { class: 'btn ghost', style: 'width:100%', onclick: () => { g.s.push({ id: 'n' + Date.now(), a: '' }); render(); } }, '+ Agregar parada'));
+    main.append(h('div', { class: 'status' }, 'Tip: en “Búsqueda en Maps” escribí la esquina como “Calle A & Calle B” si el pin sale mal ubicado.'));
+    main.append(h('div', { class: 'save' }, h('button', { class: 'btn', onclick: save }, 'Guardar cambios'),
+      h('button', { class: 'btn ghost', onclick: () => { location.reload(); } }, 'Descartar')));
+  } else if (g.s.length) {
+    main.append(h('div', { class: 'save' }, h('button', { class: 'btn ghost sm', onclick: () => { const d = getDone(); g.s.forEach(s => delete d[s.id]); setDone(d); render(); } }, 'Reiniciar tildes')));
+  }
+  if (art && !edit) main.append(h('div', { class: 'save' }, h('button', { class: 'btn ghost', onclick: () => { edit = true; render(); } }, '✏️ Editar direcciones')));
+  if (msg) main.append(h('div', { class: 'status' }, msg));
+  app.append(main);
+}
+
+function viewCard(s, i, done) {
+  return h('div', { class: 'card' + (done[s.id] ? ' done' : '') },
+    h('div', { class: 'num' }, String(i + 1)),
+    h('div', { class: 'body' }, h('div', { class: 't' }, s.a), s.n ? h('div', { class: 'n' }, s.n) : null,
+      h('div', { class: 'act' }, h('a', { class: 'btn sm', href: one(s), target: '_blank', rel: 'noopener' }, 'Abrir en Maps'))),
+    h('input', { type: 'checkbox', class: 'chk', checked: !!done[s.id], 'aria-label': 'Hecho', onchange: e => { const d = getDone(); if (e.target.checked) d[s.id] = 1; else delete d[s.id]; setDone(d); render(); } }));
+}
+
+function editCard(g, s, i) {
+  const mv = (di) => { const t = state.days[di]; g.s.splice(i, 1); t.s.push(s); render(); };
+  const sel = h('select', { onchange: e => mv(+e.target.value) });
+  state.days.forEach((d, di) => { const o = h('option', { value: di }, d.n + ' (' + d.z + ')'); if (d === g) o.selected = true; sel.append(o); });
+  const swap = (j) => { if (j < 0 || j >= g.s.length) return; [g.s[i], g.s[j]] = [g.s[j], g.s[i]]; render(); };
+  return h('div', { class: 'card', style: 'display:block' },
+    h('label', null, 'Dirección'),
+    h('input', { type: 'text', value: s.a, oninput: e => { s.a = e.target.value; } }),
+    h('label', null, 'Búsqueda en Maps (opcional)'),
+    h('input', { type: 'text', value: s.m || '', oninput: e => { s.m = e.target.value.trim() || undefined; } }),
+    h('label', null, 'Nota (opcional)'),
+    h('input', { type: 'text', value: s.n || '', oninput: e => { s.n = e.target.value.trim() || undefined; } }),
+    h('label', null, 'Día'), sel,
+    h('div', { class: 'act' },
+      h('button', { class: 'btn ghost sm', onclick: () => swap(i - 1) }, '↑'),
+      h('button', { class: 'btn ghost sm', onclick: () => swap(i + 1) }, '↓'),
+      h('a', { class: 'btn ghost sm', href: one(s), target: '_blank', rel: 'noopener' }, 'Probar en Maps'),
+      h('button', { class: 'btn ghost sm', onclick: () => { g.s.splice(i, 1); render(); } }, 'Borrar')));
+}
+
+async function save() {
+  if (!art) return;
+  state.days.forEach(d => { d.s = d.s.filter(s => s.a.trim()); });
+  const c = document.documentElement.cloneNode(true);
+  c.querySelector('#app').replaceChildren();
+  c.querySelector('#data').textContent = JSON.stringify(state).replace(/</g, '\\u003c');
+  msg = 'Guardando…'; render();
+  try { await art.publish('<!doctype html>\n' + c.outerHTML); }
+  catch (e) { msg = 'No se pudo guardar (' + (e && (e.code || e.message) || 'error') + ').'; render(); }
+}
+
+render();
+try {
+  if (window.claude && claude.use) claude.use('artifact').then(a => { if (a) { art = a; render(); } }).catch(() => {});
+} catch (e) {}
+</script>
+</body>
+</html>
