@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chinos de Mar del Plata</title>
+<style>
+:root{--bg:#f6f5f1;--fg:#1d1d1b;--card:#fff;--mut:#6b6a64;--line:#e2e0d8;--c0:#2a7de1;--c1:#d9780f;--c2:#2f9e62;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#eeede8;--card:#232321;--mut:#a09f98;--line:#363633;--c0:#3f7fd0;--c1:#c2690c;--c2:#2a8a56;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#eeede8;--card:#232321;--mut:#a09f98;--line:#363633;--c0:#3f7fd0;--c1:#c2690c;--c2:#2a8a56;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 22px}
+.day{margin-bottom:18px}
+.go{display:block;text-decoration:none;color:#fff;background:var(--ac);border-radius:18px;padding:20px 18px;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.go b{display:block;font-size:26px}
+.go span{display:block;font-size:15px;opacity:.95;margin-top:2px}
+.go em{display:block;font-style:normal;font-size:13px;opacity:.9;margin-top:10px}
+.tog{background:none;border:0;color:var(--mut);font:inherit;font-size:14px;padding:8px 4px;cursor:pointer;text-decoration:underline}
+ol{margin:4px 0 0;padding:0;list-style:none}
+li{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--ac);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+li .t{flex:1;min-width:0}
+li a{flex:none;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:14px;text-decoration:none}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script id="data" type="application/json">{"days":[{"n":"Día 1","z":"Sudeste","s":[{"id":"a1","a":"Magallanes y Padre Dutto"},{"id":"a2","a":"Edison 1466"},{"id":"a3","a":"Fortunato de la Plaza y Einstein"},{"id":"a4","a":"Mario Bravo y Aguado"},{"id":"a5","a":"Puan 1772"},{"id":"a6","a":"García Lorca y Monseñor D’Andrea"},{"id":"a7","a":"Mario Bravo y De la Maza"},{"id":"a8","a":"Vélez Sarsfield 242"}]},{"n":"Día 2","z":"Centro","s":[{"id":"b1","a":"Cerrito entre 12 de Octubre y El Cano","m":"Cerrito & 12 de Octubre"},{"id":"b2","a":"Cerrito y Hernandarias"},{"id":"b3","a":"Cerrito y Carasa"},{"id":"b4","a":"Juramento y Rosales"},{"id":"b5","a":"Fortunato de la Plaza y Juramento"},{"id":"b6","a":"Fortunato de la Plaza y Padre Dutto"},{"id":"b7","a":"Sicilia y Don Orione"},{"id":"b8","a":"Cerrito y Sicilia"}]},{"n":"Día 3","z":"Noroeste","s":[{"id":"c1","a":"12 de Octubre y Galicia"},{"id":"c2","a":"Dellepiane entre 12 de Octubre y Magallanes","m":"Dellepiane & 12 de Octubre"},{"id":"c3","a":"Talcahuano y Guanahani"},{"id":"c4","a":"Peralta Ramos entre 39 y Lebensohn","m":"Av. Jacinto Peralta Ramos & Lebensohn"},{"id":"c5","a":"Sicilia y Antártida"},{"id":"c6","a":"Fortunato de la Plaza y Matteotti","m":"Mateotti & Av. Fortunato de la Plaza"},{"id":"c7","a":"Génova y Savio"}]},{"n":"Sin día","z":"Sin asignar","s":[{"id":"d1","a":"Calabria y Bosch"}]}]}</script>
+<script>
+const state = JSON.parse(document.getElementById('data').textContent);
+const app = document.getElementById('app');
+const COL = ['var(--c0)', 'var(--c1)', 'var(--c2)'];
+const open = {};
+const dest = s => (s.m || s.a.replace(/ y /gi, ' & ')) + ', Mar del Plata, Argentina';
+const one = s => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(dest(s));
+function route(d) {
+  const last = d.s[d.s.length - 1], mid = d.s.slice(0, -1).map(dest).join('|');
+  return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(dest(last)) + (mid ? '&waypoints=' + encodeURIComponent(mid) : '');
+}
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const k in (attrs || {})) {
+    if (k === 'class') el.className = attrs[k];
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), attrs[k]);
+    else el.setAttribute(k, attrs[k]);
+  }
+  for (const c of kids.flat()) if (c != null) el.append(c);
+  return el;
+}
+function render() {
+  app.replaceChildren(h('h1', null, '🛒 Chinos de Mar del Plata'), h('p', { class: 'sub' }, 'Elegí el día y se abre Google Maps con todas las paradas.'));
+  state.days.slice(0, 3).forEach((d, i) => {
+    const box = h('div', { class: 'day', style: '--ac:' + COL[i] });
+    box.append(h('a', { class: 'go', href: route(d), target: '_blank', rel: 'noopener' },
+      h('b', null, d.n), h('span', null, d.z + ' · ' + d.s.length + ' chinos'), h('em', null, 'Tocá para abrir en Google Maps →')));
+    box.append(h('button', { class: 'tog', onclick: () => { open[i] = !open[i]; render(); } }, open[i] ? 'Ocultar lista' : 'Ver lista de paradas'));
+    if (open[i]) {
+      const ol = h('ol');
+      d.s.forEach((s, n) => ol.append(h('li', null, h('div', { class: 't' }, (n + 1) + '. ' + s.a), h('a', { href: one(s), target: '_blank', rel: 'noopener' }, 'Maps'))));
+      box.append(ol);
+    }
+    app.append(box);
+  });
+}
+render();
+</script>
+</body>
+</html>
